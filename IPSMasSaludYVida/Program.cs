@@ -42,6 +42,7 @@ namespace IPSMasSaludYVida
                     TipoDeAfiliacion = tipoAfiliacion,
                     SalarioDeVengado = salarioPaciente,
                     ValorDelServicio = valorServicio
+
                 };
                 liquidacion.CalcularCuotaModeradora();
                 string message = service.Guardar(liquidacion);

@@ -9,6 +9,7 @@ namespace DAL
 {
     public class LiquidacionCuotaModeradoraRepository
     {
+       
         private List<LiquidacionCuotaModeradora> liquidaciones;
         public LiquidacionCuotaModeradoraRepository()
         {
@@ -26,8 +27,8 @@ namespace DAL
         }
         public LiquidacionCuotaModeradora Buscar(string numeroLiquidacion)
         {
-            List<LiquidacionCuotaModeradora> liquidacionCuotaModeradoras = Consultar();
-            foreach (var item in liquidacionCuotaModeradoras)
+             liquidaciones = Consultar();
+            foreach (var item in liquidaciones)
             {
                 if (Encontrado(item.NumeroDeLiquidacion, numeroLiquidacion))
                 {
@@ -43,7 +44,7 @@ namespace DAL
         }
         public List<LiquidacionCuotaModeradora> Consultar()
         {
-            List<LiquidacionCuotaModeradora> liquidacionCuotaModeradoras = new List<LiquidacionCuotaModeradora>();
+            
             FileStream file = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
             StreamReader reader = new StreamReader(file);
             string linea = string.Empty;
@@ -51,11 +52,11 @@ namespace DAL
             while ((linea = reader.ReadLine()) != null)
             {
                 LiquidacionCuotaModeradora liquidacionCuotaModeradora = Mapear(linea);
-                liquidacionCuotaModeradoras.Add(liquidacionCuotaModeradora);
+                liquidaciones.Add(liquidacionCuotaModeradora);
             }
             reader.Close();
             file.Close();
-            return liquidacionCuotaModeradoras;
+            return liquidaciones;
 
         }
         private LiquidacionCuotaModeradora Mapear(string linea)
@@ -88,11 +89,11 @@ namespace DAL
 
         public void Eliminar(String idPaciente)
         {
-            List<LiquidacionCuotaModeradora> liquidacionCuotaModeradoras = new List<LiquidacionCuotaModeradora>();
-            liquidacionCuotaModeradoras = Consultar();
+           
+            liquidaciones = Consultar();
             FileStream file = new FileStream(fileName, FileMode.Create);
             file.Close();
-            foreach (var item in liquidacionCuotaModeradoras)
+            foreach (var item in liquidaciones)
             {
                 if (!Encontrado(item.IdentificacionDePaciente, idPaciente))
                 {
@@ -102,11 +103,11 @@ namespace DAL
         }
         public void Modificar(LiquidacionCuotaModeradora liquidacionAnterior, LiquidacionCuotaModeradora liquidacionNueva)
         {
-            List<LiquidacionCuotaModeradora> liquidacionCuotaModeradoras = new List<LiquidacionCuotaModeradora>();
-            liquidacionCuotaModeradoras = Consultar();
+           
+            liquidaciones = Consultar();
             FileStream file = new FileStream(fileName, FileMode.Create);
             file.Close();
-            foreach (var item in liquidacionCuotaModeradoras)
+            foreach (var item in liquidaciones)
             {
                 if (!Encontrado(item.IdentificacionDePaciente, liquidacionAnterior.IdentificacionDePaciente))
                 {
